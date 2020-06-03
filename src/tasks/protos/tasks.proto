@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package task;
+
+service TasksController {
+  rpc GetTasks(Empty) returns (Tasks);
+}
+
+message Empty {}
+
+message Task {
+  enum TaskStatus {
+    OPEN = 0;
+    IN_PROGRESS = 1;
+    DONE = 2;
+  }
+
+  int32 id = 1;
+  string title = 2;
+  string description = 3;
+  TaskStatus status = 4;
+  int32 userId = 6;
+}
+
+message Tasks {
+  repeated Task tasks = 1;
+}

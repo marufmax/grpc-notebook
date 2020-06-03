@@ -22,6 +22,7 @@ import { Task } from '../entities/task.entity';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from '../../auth/entities/user.entity';
 import { GetUser } from '../../auth/decorators/get-user.decorator';
+import { GrpcMethod } from '@nestjs/microservices';
 // import { UpdateTaskStatusDto } from './dto/update-task-status.dto';
 
 @Controller('tasks')
@@ -29,9 +30,9 @@ import { GetUser } from '../../auth/decorators/get-user.decorator';
 export class TasksController {
   constructor(private tasksService: TasksService) {}
 
-  @Get()
+  @GrpcMethod('TasksController', 'GetTasks')
   @UsePipes(ValidationPipe)
-  @UseGuards(AuthGuard())
+  // @UseGuards(AuthGuard())
   getTasks(
     @Query() filterDto: GetTasksFilterDto,
     @GetUser() user: User,
